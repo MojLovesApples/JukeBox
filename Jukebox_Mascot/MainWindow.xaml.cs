@@ -142,7 +142,7 @@ namespace Jukebox_Mascot
             targetImage.Source = new CroppedBitmap(sheet, new Int32Rect(x, y, frameWidth, frameHeight));
 
             if (!reverse)
-            {             
+            {
                 return (currentFrame + 1) % frameCount;
             }
             else
@@ -295,10 +295,10 @@ namespace Jukebox_Mascot
         private void LoadTrack(int index)
         {
             if (index < 0 || index >= MUSIC_FILES.Count)
-            {           
+            {
                 return;
             }
-     
+
             string filePath = MUSIC_FILES[index];
             PLAYER.Open(new Uri(filePath));
 
@@ -318,7 +318,6 @@ namespace Jukebox_Mascot
                 CURRENT_JUKEBOX_FRAME = 0;
             }
         }
-
 
         private void PlayMusic() => PLAYER.Play();
         private void PauseMusic() => PLAYER.Pause();
@@ -366,7 +365,7 @@ namespace Jukebox_Mascot
                 else
                 {
                     openTimer.Stop();
-                    ScrollingText.Visibility = Visibility.Visible;                    
+                    ScrollingText.Visibility = Visibility.Visible;
                     StartScrolling();
                 }
             };
@@ -450,7 +449,7 @@ namespace Jukebox_Mascot
             var nextButton = new ToolStripMenuItem("Next Track") { Enabled = !OTHER_MEDIA_TRACKED };
             nextButton.Click += (sender, e) => NextTrack();
 
-            var randomChar = new ToolStripMenuItem("Random Characters") { CheckOnClick = true , Checked = ALLOW_RANDOM_MASCOT};
+            var randomChar = new ToolStripMenuItem("Random Characters") { CheckOnClick = true, Checked = ALLOW_RANDOM_MASCOT };
             randomChar.CheckedChanged += (s, e) =>
             {
                 ALLOW_RANDOM_MASCOT = randomChar.Checked;
@@ -458,11 +457,11 @@ namespace Jukebox_Mascot
 
             var randomItem = new ToolStripMenuItem("Random Music") { CheckOnClick = true, Enabled = !OTHER_MEDIA_TRACKED };
             randomItem.CheckedChanged += (s, e) =>
-            { 
+            {
                 IS_RANDOM = randomItem.Checked;
             };
 
-            var otherMediaToggle = new ToolStripMenuItem("Track Other Media") { CheckOnClick = true, Checked = OTHER_MEDIA_TRACKED};
+            var otherMediaToggle = new ToolStripMenuItem("Track Other Media") { CheckOnClick = true, Checked = OTHER_MEDIA_TRACKED };
             otherMediaToggle.CheckedChanged += (s, e) =>
             {
                 OTHER_MEDIA_TRACKED = otherMediaToggle.Checked;
@@ -493,7 +492,7 @@ namespace Jukebox_Mascot
             menu.Items.Add(pauseButton);
             menu.Items.Add(nextButton);
             menu.Items.Add(randomItem);
-            menu.Items.Add(randomChar); 
+            menu.Items.Add(randomChar);
             menu.Items.Add(otherMediaToggle);
             menu.Items.Add(new ToolStripSeparator());
             menu.Items.Add("Reappear", null, (s, e) => ResetApp());
@@ -513,7 +512,7 @@ namespace Jukebox_Mascot
             LoadConfigChar();
             SetupTrayIcon();
             LoadSpritesSheet();
-            LoadMascotList(); 
+            LoadMascotList();
             InitializeAnimations();
             InitializeMusic();
             if (OTHER_MEDIA_TRACKED) InitializeMediaManager();
@@ -524,8 +523,8 @@ namespace Jukebox_Mascot
 
             CURRENT_MASCOT_INDEX = (CURRENT_MASCOT_INDEX + 1) % MASCOTS.Count;
             START_CHAR = MASCOTS[CURRENT_MASCOT_INDEX];
-            
-            
+
+
             INTRO_SHEET = null;
             DANCE_SHEET = null;
             SpriteImage.Source = null;
@@ -540,7 +539,7 @@ namespace Jukebox_Mascot
 
 
             SpriteLabel.Content = $"Mascot: {START_CHAR}";
-        }     
+        }
         private void SwitchToRandomCharacter()
         {
             if (MASCOTS == null || MASCOTS.Count == 0)
@@ -613,34 +612,34 @@ namespace Jukebox_Mascot
                 switch (key.ToUpper())
                 {
                     case "START_CHAR":
-                    {
-                        START_CHAR = value;
-                        break;
-                    }
+                        {
+                            START_CHAR = value;
+                            break;
+                        }
                     case "ALLOW_RANDOM_MASCOT":
-                    {
-                        if (bool.TryParse(value, out bool boolValue))
                         {
-                            ALLOW_RANDOM_MASCOT = boolValue;
+                            if (bool.TryParse(value, out bool boolValue))
+                            {
+                                ALLOW_RANDOM_MASCOT = boolValue;
+                            }
+                            break;
                         }
-                        break;
-                    }
                     case "ALLOW_MUSIC_NOTES":
-                    {
-                        if (bool.TryParse(value, out bool boolValue2))
                         {
-                            ALLOW_MUSIC_NOTES = boolValue2;
+                            if (bool.TryParse(value, out bool boolValue2))
+                            {
+                                ALLOW_MUSIC_NOTES = boolValue2;
+                            }
+                            break;
                         }
-                        break;
-                    }
                     case "SPRITE_SPEED":
-                    {
-                        if (int.TryParse(value, out int intValue))
                         {
-                            FRAME_RATE = intValue;
+                            if (int.TryParse(value, out int intValue))
+                            {
+                                FRAME_RATE = intValue;
+                            }
+                            break;
                         }
-                        break;
-                    }
                     case "TRACK_OTHER_MEDIA":
                         {
                             if (bool.TryParse(value, out bool boolValue3))
