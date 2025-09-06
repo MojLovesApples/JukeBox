@@ -63,6 +63,8 @@ namespace Jukebox_Mascot
         private bool ALLOW_RANDOM_MASCOT = true;
         private bool ALLOW_MUSIC_NOTES = true;
         private bool IS_RANDOM = false;
+        private bool OTHER_MEDIA_TRACKED = false;
+        private string OTHER_MEDIA_CURRENT_TRACK = "";
 
         private double SCROLL_POS;
 
@@ -70,7 +72,8 @@ namespace Jukebox_Mascot
         private List<string> MUSIC_FILES = new List<string>();
 
         private MediaPlayer PLAYER;
-
+        private MediaManager MEDIA_MANAGER;
+        private MediaManager.MediaSession CURRENT_SESSION;
         private BitmapImage LoadSprite(string filefolder, string fileName, string rootFolder = "Characters")
         {
             string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SpriteSheet", rootFolder, filefolder, fileName);
