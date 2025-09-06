@@ -124,7 +124,7 @@ namespace Jukebox_Mascot
             TRAY_ICON?.Dispose();
             System.Windows.Application.Current.Shutdown();
         }
-        private int PlayAnimation(BitmapImage sheet,int currentFrame,int frameCount,int frameWidth,int frameHeight,System.Windows.Controls.Image targetImage,bool reverse = false)
+        private int PlayAnimation(BitmapImage sheet, int currentFrame, int frameCount, int frameWidth, int frameHeight, System.Windows.Controls.Image targetImage, bool reverse = false)
         {
             if (sheet == null)
                 return currentFrame;
@@ -227,12 +227,12 @@ namespace Jukebox_Mascot
 
         private void InitializeAnimations()
         {
-            MASTER_TIMER = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(FRAME_RATE)};
+            MASTER_TIMER = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(FRAME_RATE) };
             MASTER_TIMER.Tick += (s, e) =>
             {
                 if (IS_INTRO)
                 {
-                    CURRENT_INTRO_FRAME = PlayAnimation(INTRO_SHEET, CURRENT_INTRO_FRAME, INTRO_FRAME_COUNT,FRAME_WIDTH, FRAME_HEIGHT, SpriteImage);
+                    CURRENT_INTRO_FRAME = PlayAnimation(INTRO_SHEET, CURRENT_INTRO_FRAME, INTRO_FRAME_COUNT, FRAME_WIDTH, FRAME_HEIGHT, SpriteImage);
 
                     if (CURRENT_INTRO_FRAME == 0)
                     {
@@ -321,7 +321,7 @@ namespace Jukebox_Mascot
 
         private void NextTrack()
         {
-            if(MUSIC_FILES.Count <= 0)
+            if (MUSIC_FILES.Count <= 0)
             {
                 return;
             }
