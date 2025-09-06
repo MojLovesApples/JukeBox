@@ -364,9 +364,16 @@ namespace Jukebox_Mascot
             TRAY_ICON.Text = "Jukebox";
 
             var menu = new ContextMenuStrip();
-            menu.Items.Add("Play", null, (s, e) => PlayMusic());
-            menu.Items.Add("Pause", null, (s, e) => PauseMusic());
-            menu.Items.Add("Next Track", null, (s, e) => NextTrack());
+
+            // Save the buttons in variables so that they can be disabled/enabled later if needed
+            var playButton = new ToolStripMenuItem("Play");
+            playButton.Click += (sender, e) => PlayMusic();
+
+            var pauseButton = new ToolStripMenuItem("Pause");
+            pauseButton.Click += (sender, e) => PauseMusic();
+
+            var nextButton = new ToolStripMenuItem("Next Track");
+            nextButton.Click += (sender, e) => NextTrack();
 
             var randomChar = new ToolStripMenuItem("Random Characters") { CheckOnClick = true };
             randomChar.CheckedChanged += (s, e) =>
@@ -380,8 +387,40 @@ namespace Jukebox_Mascot
                 IS_RANDOM = randomItem.Checked;
             };
 
+            var otherMediaToggle = new ToolStripMenuItem("Track Other Media") { CheckOnClick = true };
+            otherMediaToggle.CheckedChanged += (s, e) =>
+            {
+                OTHER_MEDIA_TRACKED = otherMediaToggle.Checked;
+
+                // If the spotify tracker is enabled, stop the user from using the built in music player
+                playButton.Enabled = !OTHER_MEDIA_TRACKED;
+                pauseButton.Enabled = !OTHER_MEDIA_TRACKED;
+                nextButton.Enabled = !OTHER_MEDIA_TRACKED;
+                randomItem.Enabled = !OTHER_MEDIA_TRACKED;
+
+                // Pause the music if tracking spotify
+                if (OTHER_MEDIA_TRACKED)
+                {
+                    PauseMusic();
+
+                    if (MEDIA_MANAGER == null)
+                    {
+                        InitializeMediaManager();
+                    }
+                }
+                else
+                {
+                    MEDIA_MANAGER.Dispose();
+                    MEDIA_MANAGER = null;
+                }
+            };
+
+            menu.Items.Add(playButton);
+            menu.Items.Add(pauseButton);
+            menu.Items.Add(nextButton);
             menu.Items.Add(randomItem);
             menu.Items.Add(randomChar); 
+            menu.Items.Add(otherMediaToggle);
             menu.Items.Add(new ToolStripSeparator());
             menu.Items.Add("Reappear", null, (s, e) => ResetApp());
             menu.Items.Add("Close", null, (s, e) => CloseApp());
