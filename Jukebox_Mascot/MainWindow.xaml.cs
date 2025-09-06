@@ -294,9 +294,6 @@ namespace Jukebox_Mascot
                 else
                 {
                     openTimer.Stop();
-                    string filePath = MUSIC_FILES[CURRENT_TRACK_INDEX];
-                    //string songName = System.IO.Path.GetFileNameWithoutExtension(filePath);
-                    //ScrollingText.Text = $"🎵 Now Playing: {songName} 🎵";
                     ScrollingText.Visibility = Visibility.Visible;                    
                     StartScrolling();
                 }
