@@ -157,6 +157,74 @@ namespace Jukebox_Mascot
             }
         }
 
+        private void UpdateMediaProperties(MediaManager.MediaSession sender, GlobalSystemMediaTransportControlsSessionMediaProperties mediaProperties)
+        {
+            if (mediaProperties == null)
+            {
+                OTHER_MEDIA_CURRENT_TRACK = "";
+            }
+            GC.Collect(0);
+
+            if (CURRENT_SESSION == sender)
+            {
+                // Get the name and the artist of the current track
+                string title = mediaProperties.Title ?? "Unkown Title";
+                string artist = mediaProperties.Artist ?? "Unknown Artist";
+                OTHER_MEDIA_CURRENT_TRACK = $"🎵 Now Playing: {title} by {artist} 🎵";
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    ScrollingText.Text = OTHER_MEDIA_CURRENT_TRACK;
+                    ReopenScrollingBorder();
+                    if (ALLOW_RANDOM_MASCOT)
+                    {
+                        SwitchToRandomCharacter();
+                    }
+                    if (PLAY_INTRO_ON_NEW_SONG)
+                    {
+                        JukeBoxSprite.Source = null;
+                        IS_INTRO = true;
+                        CURRENT_INTRO_FRAME = 0;
+                        CURRENT_JUKEBOX_FRAME = 0;
+                    }
+                });
+            }
+        }
+
+        private void SenderPlaybackStateChanged(MediaManager.MediaSession sender, GlobalSystemMediaTransportControlsSessionPlaybackInfo args)
+        {
+            switch (args.PlaybackStatus)
+            {
+                /*  
+                 *  This allows for different outcomes based on:
+                 *  if the media is closed, opened, changing, stopped, playing, or paused.
+                 *  So it can be used for different animations or actions, which would be cool.
+                 */
+                case GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing:
+                case GlobalSystemMediaTransportControlsSessionPlaybackStatus.Changing:
+                    CURRENT_SESSION = sender;
+                    /*
+                     * Calling this here when it is already being listened to seems redundant but it is needed for when the user pauses/unpauses or starts a new song
+                     * The listener exists for automatic changes, such as spotify going to the next playlist.
+                     */
+                    UpdateMediaProperties(sender, sender.ControlSession.TryGetMediaPropertiesAsync().AsTask().Result);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void InitializeMediaManager()
+        {
+            MEDIA_MANAGER = new MediaManager();
+
+            MEDIA_MANAGER.OnAnyPlaybackStateChanged += SenderPlaybackStateChanged;
+            MEDIA_MANAGER.OnAnyMediaPropertyChanged += UpdateMediaProperties;
+
+            // Start listening
+            MEDIA_MANAGER.Start();
+        }
+
         private void InitializeAnimations()
         {
             MASTER_TIMER = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(FRAME_RATE)};
