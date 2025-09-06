@@ -417,6 +417,7 @@ namespace Jukebox_Mascot
         {
             TRAY_ICON.Visible = false;
             string exePath = Process.GetCurrentProcess().MainModule.FileName;
+            SaveMasterConfig();
             Process.Start(exePath);
             System.Windows.Application.Current.Shutdown();
         }
@@ -425,7 +426,9 @@ namespace Jukebox_Mascot
         {
             TRAY_ICON.Visible = false;
             TRAY_ICON?.Dispose();
+            MEDIA_MANAGER?.Dispose();
             MASTER_TIMER.Stop();
+            SaveMasterConfig();
             System.Windows.Application.Current.Shutdown();
         }
         private void SetupTrayIcon()
@@ -438,28 +441,28 @@ namespace Jukebox_Mascot
             var menu = new ContextMenuStrip();
 
             // Save the buttons in variables so that they can be disabled/enabled later if needed
-            var playButton = new ToolStripMenuItem("Play");
+            var playButton = new ToolStripMenuItem("Play") { Enabled = !OTHER_MEDIA_TRACKED };
             playButton.Click += (sender, e) => PlayMusic();
 
-            var pauseButton = new ToolStripMenuItem("Pause");
+            var pauseButton = new ToolStripMenuItem("Pause") { Enabled = !OTHER_MEDIA_TRACKED };
             pauseButton.Click += (sender, e) => PauseMusic();
 
-            var nextButton = new ToolStripMenuItem("Next Track");
+            var nextButton = new ToolStripMenuItem("Next Track") { Enabled = !OTHER_MEDIA_TRACKED };
             nextButton.Click += (sender, e) => NextTrack();
 
-            var randomChar = new ToolStripMenuItem("Random Characters") { CheckOnClick = true };
+            var randomChar = new ToolStripMenuItem("Random Characters") { CheckOnClick = true , Checked = ALLOW_RANDOM_MASCOT};
             randomChar.CheckedChanged += (s, e) =>
             {
                 ALLOW_RANDOM_MASCOT = randomChar.Checked;
             };
 
-            var randomItem = new ToolStripMenuItem("Random Music") { CheckOnClick = true };
+            var randomItem = new ToolStripMenuItem("Random Music") { CheckOnClick = true, Enabled = !OTHER_MEDIA_TRACKED };
             randomItem.CheckedChanged += (s, e) =>
             { 
                 IS_RANDOM = randomItem.Checked;
             };
 
-            var otherMediaToggle = new ToolStripMenuItem("Track Other Media") { CheckOnClick = true };
+            var otherMediaToggle = new ToolStripMenuItem("Track Other Media") { CheckOnClick = true, Checked = OTHER_MEDIA_TRACKED};
             otherMediaToggle.CheckedChanged += (s, e) =>
             {
                 OTHER_MEDIA_TRACKED = otherMediaToggle.Checked;
@@ -482,8 +485,7 @@ namespace Jukebox_Mascot
                 }
                 else
                 {
-                    MEDIA_MANAGER.Dispose();
-                    MEDIA_MANAGER = null;
+                    MEDIA_MANAGER?.Dispose();
                 }
             };
 
@@ -514,6 +516,7 @@ namespace Jukebox_Mascot
             LoadMascotList(); 
             InitializeAnimations();
             InitializeMusic();
+            if (OTHER_MEDIA_TRACKED) InitializeMediaManager();
         }
         private void JukeBoxSprite_Click(object sender, MouseButtonEventArgs e)
         {
@@ -565,6 +568,22 @@ namespace Jukebox_Mascot
             IS_INTRO = true;
 
             JukeBoxSprite.Source = null;
+        }
+
+        private void SaveMasterConfig()
+        {
+            string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config.txt");
+
+            var lines = new List<string>
+            {
+                $"START_CHAR={START_CHAR}",
+                $"ALLOW_RANDOM_MASCOT={ALLOW_RANDOM_MASCOT}",
+                $"ALLOW_MUSIC_NOTES={ALLOW_MUSIC_NOTES}",
+                $"SPRITE_SPEED={FRAME_RATE}",
+                $"TRACK_OTHER_MEDIA={OTHER_MEDIA_TRACKED}"
+            };
+
+            File.WriteAllLines(path, lines);
         }
 
         private void LoadMasterConfig()
@@ -622,6 +641,14 @@ namespace Jukebox_Mascot
                         }
                         break;
                     }
+                    case "TRACK_OTHER_MEDIA":
+                        {
+                            if (bool.TryParse(value, out bool boolValue3))
+                            {
+                                OTHER_MEDIA_TRACKED = boolValue3;
+                            }
+                            break;
+                        }
                 }
             }
         }
