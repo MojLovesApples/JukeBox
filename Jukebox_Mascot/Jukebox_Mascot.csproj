@@ -37,7 +37,9 @@
     <Compile Include="Music\PUT_MP3_FILES_HERE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Resource Include="Icon.ico" />
+    <Content Include="icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="icon2.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -108,73 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Dubya.WindowsMediaController" Version="2.5.5" />
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.8" />
-    <PackageReference Include="Microsoft.Bcl.Cryptography" Version="9.0.8" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.8" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.8" />
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" />
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net48" Version="1.0.3" />
-    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Win32.Registry.AccessControl" Version="9.0.8" />
-    <PackageReference Include="Microsoft.Win32.SystemEvents" Version="9.0.8" />
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="9.0.8" />
-    <PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.22000.197" />
-    <PackageReference Include="System.Buffers" Version="4.5.1" />
-    <PackageReference Include="System.CodeDom" Version="9.0.8" />
-    <PackageReference Include="System.ComponentModel.Composition" Version="9.0.8" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.8" />
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="System.Data.Odbc" Version="9.0.8" />
-    <PackageReference Include="System.Data.OleDb" Version="9.0.8" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.8" />
-    <PackageReference Include="System.Diagnostics.EventLog" Version="9.0.8" />
-    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="9.0.8" />
-    <PackageReference Include="System.DirectoryServices" Version="9.0.8" />
-    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="9.0.8" />
-    <PackageReference Include="System.DirectoryServices.Protocols" Version="9.0.8" />
-    <PackageReference Include="System.Drawing.Common" Version="9.0.8" />
-    <PackageReference Include="System.Formats.Asn1" Version="9.0.8" />
-    <PackageReference Include="System.IO" Version="4.3.0" />
-    <PackageReference Include="System.IO.FileSystem.AccessControl" Version="5.0.0" />
-    <PackageReference Include="System.IO.Packaging" Version="9.0.8" />
-    <PackageReference Include="System.IO.Pipes.AccessControl" Version="5.0.0" />
-    <PackageReference Include="System.IO.Ports" Version="9.0.8" />
-    <PackageReference Include="System.Management" Version="9.0.8" />
-    <PackageReference Include="System.Memory" Version="4.5.5" />
-    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
-    <PackageReference Include="System.Reflection.Context" Version="9.0.8" />
-    <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
-    <PackageReference Include="System.Reflection.Emit.ILGeneration" Version="4.7.0" />
-    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
-    <PackageReference Include="System.Runtime" Version="4.3.0" />
-    <PackageReference Include="System.Runtime.Caching" Version="9.0.8" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
-    <PackageReference Include="System.Runtime.InteropServices.WindowsRuntime" Version="4.3.0" />
-    <PackageReference Include="System.Runtime.WindowsRuntime" Version="4.7.0" />
-    <PackageReference Include="System.Runtime.WindowsRuntime.UI.Xaml" Version="4.7.0" />
-    <PackageReference Include="System.Security.AccessControl" Version="6.0.0" />
-    <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.1" />
-    <PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
-    <PackageReference Include="System.Security.Cryptography.Encoding" Version="4.3.0" />
-    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="9.0.8" />
-    <PackageReference Include="System.Security.Cryptography.Primitives" Version="4.3.0" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="9.0.8" />
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.8" />
-    <PackageReference Include="System.Security.Permissions" Version="9.0.8" />
-    <PackageReference Include="System.Security.Principal.Windows" Version="5.0.0" />
-    <PackageReference Include="System.ServiceModel.Duplex" Version="4.10.3" />
-    <PackageReference Include="System.ServiceModel.Http" Version="4.10.3" />
-    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.10.3" />
-    <PackageReference Include="System.ServiceModel.Primitives" Version="4.10.3" />
-    <PackageReference Include="System.ServiceModel.Security" Version="4.10.3" />
-    <PackageReference Include="System.ServiceModel.Syndication" Version="9.0.8" />
-    <PackageReference Include="System.ServiceProcess.ServiceController" Version="9.0.8" />
-    <PackageReference Include="System.Speech" Version="9.0.8" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.8" />
-    <PackageReference Include="System.Threading.AccessControl" Version="9.0.8" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="System.Web.Services.Description" Version="4.10.3" />
   </ItemGroup>
 </Project>
