@@ -172,8 +172,8 @@ namespace Jukebox_Mascot
             if (CURRENT_SESSION == sender)
             {
                 // Get the name and the artist of the current track
-                string title = mediaProperties.Title ?? "Unkown Title";
-                string artist = mediaProperties.Artist ?? "Unknown Artist";
+                string title = string.IsNullOrEmpty(mediaProperties.Title) ? "Unkown Title" : mediaProperties.Title;
+                string artist = string.IsNullOrEmpty(mediaProperties.Artist) ? "Unknown Artist" : mediaProperties.Artist;
                 OTHER_MEDIA_CURRENT_TRACK = $"🎵 Now Playing: {title} by {artist} 🎵";
 
                 this.Dispatcher.Invoke(() =>
