@@ -1,4 +1,5 @@
-# Jukebox_Mascot
+# Jukebox_Mascot ![GitHub all releases](https://img.shields.io/github/downloads/MojLovesApples/Jukebox/total)
+
 A desktop jukebox mascot app built with C# (WPF), Mostly related to Umamusume, but can be edited through the spritesheet.
 Perfect for having a little dancing gremlin to waste your time while procrastinating.
 
